@@ -27,7 +27,7 @@ $(document).ready(function() {
 });
 buttonMngr = {
   // all code to manage buttons
-
+  topicArray:["bjj","mma"]
 }
 
 imageMngr = {
