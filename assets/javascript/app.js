@@ -4,12 +4,14 @@ btnMngr = {
   // all code to manage buttons
   gifWords: ["jiujitsu", "mma"],
   btnGen: function() {
+    var tmpDiv = $("<div>");
     for (var i in btnMngr.gifWords) {
       button = $("<button>");
       button.addClass("btn btn-primary");
       button.html(btnMngr.gifWords[i]);
-      $("#apiButtons").append(button)
+      tmpDiv.append(button);
     };
+    $("#apiButtons").html(tmpDiv);
     $("#apiButtons .btn").on('click', function() {
       imageMngr.getImages($(this).html());
     });
@@ -28,6 +30,7 @@ imageMngr = {
   },
 }
 
+
 $(document).ready(function() {
   giphy = {};
   giphy["g"] = "https://media.giphy.com/media/l0Ex8HiCGD8BnsVvG/giphy.gif";
@@ -44,7 +47,7 @@ $(document).ready(function() {
     temp.height(100);
     $(".jumbotron").append(temp);
   }
-
+  $("")
   setInterval(function() {
     function clrNum() {
       return Math.floor(Math.random() * (230 - 1) + 1)
@@ -53,6 +56,10 @@ $(document).ready(function() {
       backgroundColor: "rgb(" + clrNum() + "," + clrNum() + "," + clrNum() + ")",
     }, 3000);
   }, 3000);
-
   btnMngr.btnGen();
+  $("#addGiphy").on('click', function() {
+    console.log($("#giphy").text());
+    btnMngr.gifWords.push($("#giphy").val());
+    btnMngr.btnGen();
+  });
 });
