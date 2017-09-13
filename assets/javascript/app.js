@@ -7,21 +7,25 @@ btnMngr = {
     for (var i in btnMngr.gifWords) {
       button = $("<button>");
       button.addClass("btn btn-primary");
-      console.log(btnMngr.gifWords[i]);
       button.html(btnMngr.gifWords[i]);
       $("#apiButtons").append(button)
     };
-    $("#apiButtons .btn").on('click', function () {
-      console.log($(this).html());
+    $("#apiButtons .btn").on('click', function() {
+      imageMngr.getImages($(this).html());
     });
-  },
-  btnClick: function() {
-    console.log(this);
   }
 }
 
 imageMngr = {
   // all code to manage display of image
+  getImages: function(keyWord) {
+    var query = keyWord + "&api_key=" + giphyKey + "&limit=9";
+    var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=" + query);
+    xhr.done(function(data) {
+      var giphs = data.data;
+      console.log(giphs);
+    });
+  },
 }
 
 $(document).ready(function() {
