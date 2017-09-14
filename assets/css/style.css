@@ -4,3 +4,7 @@ h1{
 .container{
   padding:10px;
 }
+
+.images{
+  height:auto;
+}

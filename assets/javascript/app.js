@@ -2,7 +2,7 @@ giphyKey = "bc8cb607d7f1414391f0c2f7c7432af8";
 
 btnMngr = {
   // all code to manage buttons
-  gifWords: ["jiujitsu", "mma"],
+  gifWords: ["cats", "dogs"],
   btnGen: function() {
     var tmpDiv = $("<div>");
     for (var i in btnMngr.gifWords) {
@@ -15,17 +15,44 @@ btnMngr = {
     $("#apiButtons .btn").on('click', function() {
       imageMngr.getImages($(this).html());
     });
+
   }
 }
 
 imageMngr = {
   // all code to manage display of image
-  getImages: function(keyWord) {
+  getImages: function(keyWord){
+    $("#imgCon").empty();
     var query = keyWord + "&api_key=" + giphyKey + "&limit=9";
     var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=" + query);
     xhr.done(function(data) {
       var giphs = data.data;
-      console.log(giphs);
+      // console.log(giphs);
+
+      for (var i=0; i < giphs.length; i++){
+        var img = $("<img>");
+        var div = $("<div>");
+        div.addClass("col-xs-4");
+        imageUrl = giphs[i].images.fixed_height_still.url;
+        // console.log(imageUrl);
+        img.attr("src",imageUrl);
+        img.attr("still",imageUrl);
+        img.attr("active",giphs[i].images.fixed_height.url);
+        img.addClass("img-rounded");
+        div.append(img);
+        // console.log(JSON.stringify(div));
+        $("#imgCon").append($(div));
+
+      }
+      $("img").on('click', function(){
+        var tmp =this;
+        var src = this.src;
+        var still = tmp.attributes.getNamedItem("still").value;
+        var active = tmp.attributes.getNamedItem("active").value;
+        src === still?this.src=active:this.src=still;
+
+      });
+
     });
   },
 }
@@ -47,7 +74,7 @@ $(document).ready(function() {
     temp.height(100);
     $(".jumbotron").append(temp);
   }
-  $("")
+
   setInterval(function() {
     function clrNum() {
       return Math.floor(Math.random() * (230 - 1) + 1)
@@ -62,4 +89,5 @@ $(document).ready(function() {
     btnMngr.gifWords.push($("#giphy").val());
     btnMngr.btnGen();
   });
+
 });
