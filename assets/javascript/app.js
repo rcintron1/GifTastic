@@ -13,6 +13,7 @@ btnMngr = {
     };
     $("#apiButtons").html(tmpDiv);
     $("#apiButtons .btn").on('click', function() {
+      event.preventDefault();
       imageMngr.getImages($(this).html());
     });
 
@@ -21,7 +22,7 @@ btnMngr = {
 
 imageMngr = {
   // all code to manage display of image
-  getImages: function(keyWord){
+  getImages: function(keyWord) {
     $("#imgCon").empty();
     var query = keyWord + "&api_key=" + giphyKey + "&limit=9";
     var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=" + query);
@@ -29,15 +30,15 @@ imageMngr = {
       var giphs = data.data;
       // console.log(giphs);
 
-      for (var i=0; i < giphs.length; i++){
+      for (var i = 0; i < giphs.length; i++) {
         var img = $("<img>");
         var div = $("<div>");
         div.addClass("col-xs-4 text-center");
         imageUrl = giphs[i].images.fixed_height_still.url;
         // console.log(imageUrl);
-        img.attr("src",imageUrl);
-        img.attr("still",imageUrl);
-        img.attr("active",giphs[i].images.fixed_height.url);
+        img.attr("src", imageUrl);
+        img.attr("still", imageUrl);
+        img.attr("active", giphs[i].images.fixed_height.url);
         img.addClass("img-rounded");
         div.append($("<p>").html("Rated: " + giphs[i].rating));
         div.append(img);
@@ -45,12 +46,12 @@ imageMngr = {
         $("#imgCon").append($(div));
 
       }
-      $("img").on('click', function(){
-        var tmp =this;
+      $("img").on('click', function() {
+        var tmp = this;
         var src = this.src;
         var still = tmp.attributes.getNamedItem("still").value;
         var active = tmp.attributes.getNamedItem("active").value;
-        src === still?this.src=active:this.src=still;
+        src === still ? this.src = active : this.src = still;
 
       });
 
