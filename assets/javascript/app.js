@@ -32,13 +32,14 @@ imageMngr = {
       for (var i=0; i < giphs.length; i++){
         var img = $("<img>");
         var div = $("<div>");
-        div.addClass("col-xs-4");
+        div.addClass("col-xs-4 text-center");
         imageUrl = giphs[i].images.fixed_height_still.url;
         // console.log(imageUrl);
         img.attr("src",imageUrl);
         img.attr("still",imageUrl);
         img.attr("active",giphs[i].images.fixed_height.url);
         img.addClass("img-rounded");
+        div.append($("<p>").html("Rated: " + giphs[i].rating));
         div.append(img);
         // console.log(JSON.stringify(div));
         $("#imgCon").append($(div));
