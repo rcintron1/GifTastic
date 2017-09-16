@@ -25,7 +25,7 @@ imageMngr = {
   getImages: function(keyWord) {
     $("#imgCon").empty();
     var query = keyWord + "&api_key=" + giphyKey + "&limit=9";
-    var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=" + query);
+    var xhr = $.get("https://api.giphy.com/v1/gifs/search?q=" + query);
     xhr.done(function(data) {
       var giphs = data.data;
       // console.log(giphs);
