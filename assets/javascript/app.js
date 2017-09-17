@@ -85,6 +85,7 @@ $(document).ready(function() {
   $('body').on('click', '#addGiphy', function() {
     console.log($("#giphy").val());
     btnMngr.gifWords.push($("#giphy").val());
+    $("#giphy").val('');
     btnMngr.btnGen();
   });
   setInterval(function() {
